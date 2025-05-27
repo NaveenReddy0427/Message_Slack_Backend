@@ -8,14 +8,12 @@ import ClientError from '../utils/errors/clientError.js';
 import ValidationError from '../utils/errors/validationError.js';
 
 const isUserAdminOfWorkspace = (workspace, userId) => {
-  console.log(workspace.members, userId);
   const response = workspace.members.find(
     (member) =>
       (member.memberId.toString() === userId ||
         member.memberId._id.toString() === userId) &&
       member.role === 'admin'
   );
-  console.log(response);
   return response;
 };
 
@@ -96,7 +94,6 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
         statusCode: StatusCodes.NOT_FOUND
       });
     }
-    console.log(workspace.members, userId);
     const isAllowed = isUserAdminOfWorkspace(workspace, userId);
     //   const channelIds = workspace.channels.map((channel) => channel._id);
 
